@@ -48,7 +48,7 @@ class UserController implements Controller {
         );
         this.router.post(
             `${this.path}/confirmReset_Password`,
-            validationMiddleware(validate.resetPasswordEmail),
+            validationMiddleware(validate.resetPasswordCode),
             this.confirmResetPassword,
         );
     }
@@ -159,9 +159,14 @@ class UserController implements Controller {
         next: NextFunction,
     ): Promise<Response | void> => {
         try {
-            const { pinCode } = req.body;
-            const response = await this.UserService.resetPasswordConfirmation(pinCode);
-            res.send({ success: response });
+            const { digits,newPassword, email } = req.body;
+            console.log('email', email);
+            const response = await this.UserService.resetPasswordConfirmation(
+                email,
+                newPassword,
+                digits
+            );
+            res.send({ success: 'Password changed succesfully' });
         } catch (error: any) {
             throw new HttpException(400, error.message);
         }

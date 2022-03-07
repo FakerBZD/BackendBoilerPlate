@@ -130,11 +130,11 @@ class UserService {
             throw error;
         }
     }
-    public async resetPasswordConfirmation(email: string, codePin: number): Promise<string | Error> {
+    public async resetPasswordConfirmation(email: string, newPassword:string, codePin: number): Promise<any> {
         try {
             const userExist = await userModel.findOne({ email: email });
             if (userExist) {
-                await userExist.resetPasswordCode(codePin);
+                await userExist.resetPasswordCode(codePin, newPassword);
 
            
             } else throw new HttpException(400, 'User do not exist');

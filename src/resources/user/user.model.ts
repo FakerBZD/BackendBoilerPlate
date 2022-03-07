@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
 import bcrypt from 'bcrypt';
 import User from '@/resources/user/user.interface';
+import { number } from 'joi';
 
 const UserSchema = new Schema(
     {
@@ -32,9 +33,6 @@ const UserSchema = new Schema(
         resetCode: {
             type: Number,
         },
-        resetCodeDate : {
-            type: Date,
-        },  
         confirmationToken: {
             type: String,
         },
@@ -68,7 +66,7 @@ UserSchema.methods.updateProfileImage = async function (
     this.imagePath = imagePath;
     return await this.save();
 };
-UserSchema.methods.resetPasswordCode = async function (
+UserSchema.methods.resetPasswordEmail = async function (
     digits: number,
 ): Promise<typeof UserSchema | Error> {
     this.resetCode = digits;
@@ -77,12 +75,22 @@ UserSchema.methods.resetPasswordCode = async function (
 };
 UserSchema.methods.resetPasswordCode = async function (
     digits: number,
+    newPassword: string,
 ): Promise<typeof UserSchema | Error> {
-    if (new Date().toISOString() >   thisresetCodeDate   if (this.resetCode == digits) ;
-    this.lastResetDate = Date.now();
-    return await this.save();
+    if (digits === this.resetCode) {
+        const timeDiffrence: number =
+            (Date.now() - this.lastResetDate.getTime()) / 60000;
+        if (timeDiffrence <= 30) {
+            this.password = newPassword;
+            this.resetCode= null;
+            return await this.save();
+        } else {
+            throw Error('fail to register new password ');
+        }
+    } else {
+        throw Error('wrong digits number ');
+    }
 };
-
 
 UserSchema.methods.isValidPassword = async function (
     password: string,

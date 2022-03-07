@@ -21,6 +21,11 @@ const updateUserName = Joi.object({
 const resetPasswordEmail = Joi.object({
     email: Joi.string().email().required(),
 });
+const resetPasswordCode = Joi.object({
+    email: Joi.string().email().required(),
+    digits: Joi.number().required(),
+    newPassword: Joi.string().min(6).required(),
+});
 
 export default {
     registerUser,
@@ -29,4 +34,5 @@ export default {
     updateUserPassword,
     updateUserName,
     resetPasswordEmail,
+    resetPasswordCode,
 };
