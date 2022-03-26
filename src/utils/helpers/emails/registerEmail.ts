@@ -7,7 +7,7 @@ export const UserRegisterHtml = (
 
         <htm> 
           <body>
-          <h1> Hey, ${name}Welcome to Logistio </h1> 
+          <h1> Hey, ${name}Welcome to project </h1> 
                 Your login credntials are : <br/> 
                 Email : ${email} <br/> 
                 password: ${password} <br/>

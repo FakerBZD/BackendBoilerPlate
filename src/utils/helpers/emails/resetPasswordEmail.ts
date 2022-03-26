@@ -3,7 +3,7 @@ export const UserResetPasswordHtml = (digits: Number): string => {
 
         <htm> 
           <body>
-          <h1> Recover your Logistio Account </h1> 
+          <h1> Recover your project Account </h1> 
                 Your 6 digits are : <br/> 
                  ${digits}
                 

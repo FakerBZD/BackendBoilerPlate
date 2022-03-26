@@ -26,8 +26,8 @@ class UserService {
                 return sgMail
                     .send({
                         to: email,
-                        from: 'support@logistio-erp.com',
-                        subject: 'Welcome to Logistio ERP',
+                        from: 'support@project',
+                        subject: 'Welcome to project ERP',
                         text: 'Credentials',
                         html: UserRegisterHtml(name, email, password),
                     })
@@ -111,8 +111,8 @@ class UserService {
                 return sgMail
                     .send({
                         to: email,
-                        from: 'support@logistio-erp.com',
-                        subject: 'Welcome to Logistio ERP',
+                        from: 'support@project.com',
+                        subject: 'Welcome to project',
                         text: 'Credentials',
                         html: UserResetPasswordHtml(digits),
                     })
